@@ -21,6 +21,11 @@ a_instance[-1]["q"] = 4
 # 计算下一次测试的时间
 a_instance.calc()
 print(a_instance[-1]["plan_time"])
+# 4th tests
+a_instance[-1]["q"] = 2
+# 计算下一次测试的时间
+a_instance.calc()
+print(a_instance[-1]["plan_time"])
 
 # supermemo2包的效果
 print("#"*30)
