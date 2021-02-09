@@ -1,6 +1,6 @@
 # Introduction
-This is a Python implement of SM-2 arithmetic.
-You can get a introduction of this arithmetic from
+This is a Python implement of SM-2 algorithm.
+You can get a introduction of this algorithm from
  `https://www.supermemo.com/en/archives1990-2015/english/ol/sm2` 
  or `./sm2-intro` (in Chinese).
 
@@ -12,7 +12,7 @@ Import the package.
     import datetime
 
 Config the package. "LAWFUL" means user will test the item
-at the plan time that given by the SM-2 arithmetic each time.
+at the plan time that given by the SM-2 algorithm each time.
 就是说用户严格按照算法计算的时间进行测试(复习)，不会提前，也不会更晚。
 
     SM2.LAWFUL_or_CHAOTIC = "LAWFUL"
@@ -92,7 +92,7 @@ After the above commend, the item obj maintain a log as:
 In the return day (2021.3.1), user test the item for the 4th time and get 2 points.
 
 **If user get a score less than 3, 
-the arithmetic will return to step 1 without update the e.**
+the algorithm will return to step 1 without update the e.**
 
     a_instance[-1]["q"] = 2
     
