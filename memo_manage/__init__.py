@@ -1,1 +1,1 @@
-from .model import MemoUnit, MemoGroup
+from .src.model import MemoUnit, MemoGroup

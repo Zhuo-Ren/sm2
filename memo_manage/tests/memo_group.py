@@ -55,8 +55,21 @@ print(cet4_tasks["dog_recognition"].center[-1]["plan_time"])
 print(cet4_tasks["dog_using"].center[-1]["plan_time"])
 print(cet4_tasks["dog_listen"].center[-1]["plan_time"])
 
+cet4_tasks_dict = {}
+for k,v in cet4_tasks.items():
+    log = []
+    log.extend(v.center)
+    cet4_tasks_dict[k] = log
+print(cet4_tasks_dict)
+cet4_tasks_2 = MemoGroup(from_info=cet4_tasks_dict)
 
-
+print(cet4_tasks_2["apple_recognition"].center[-1]["plan_time"])
+print(cet4_tasks_2["apple_using"].center[-1]["plan_time"])
+print(cet4_tasks_2["apple_listen"].center[-1]["plan_time"])
+print(cet4_tasks_2["dog_pronunciation"].center[-1]["plan_time"])
+print(cet4_tasks_2["dog_recognition"].center[-1]["plan_time"])
+print(cet4_tasks_2["dog_using"].center[-1]["plan_time"])
+print(cet4_tasks_2["dog_listen"].center[-1]["plan_time"])
 
 
 

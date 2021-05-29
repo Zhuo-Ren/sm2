@@ -5,7 +5,7 @@ SM2.LAWFUL_or_CHAOTIC = "CHAOTIC"
 
 if 1:  # 按时复习
     print("#" * 30)
-    a_instance = SM2()
+    a_instance = SM2(item_id="apple")
     # 学习
     # 1st tests
     a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 7, 22, 10, 3)  # 或datetime.date(2021, 2, 7)
@@ -28,7 +28,7 @@ if 1:  # 按时复习
 
 if 1:  # 没有按时复习
     print("#" * 30)
-    a_instance = SM2()
+    a_instance = SM2(item_id="apple")
     # 学习
     # 1st tests
     a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 7, 2, 22, 22)

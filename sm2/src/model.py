@@ -1,7 +1,5 @@
 import json
 from datetime import date, timedelta
-from .exceptions import CalcNotCalledYet
-
 
 
 class SM2(list):  # sm-2 类
@@ -9,14 +7,21 @@ class SM2(list):  # sm-2 类
     INIT_INTERVAL = -1
     INIT_E = 2.5
 
-    def __init__(self, item_id=None, log=None):
+    def __init__(self, item_id, log=None):
+        """
+        Init a SM2 obj.
+
+        :param item_id: id of this item.
+        :param log: test log of this item.
+        :type log: list
+        """
         # public: item_id
         if item_id is None:
-            self.item_id = None
+            raise TypeError
         else:
             self.item_id = item_id
 
-        # public: log
+        #
         if log is None:
             self.append({
                 "step": 0, "plan_time": None, "real_time": None, "q": None,
@@ -27,7 +32,10 @@ class SM2(list):  # sm-2 类
                 "interval": None, "e": None
             })
         else:
-            self.extend(log)
+            if not isinstance(log, list):
+                raise TypeError
+            else:
+                self.extend(log)
 
     def calc(self):
         """

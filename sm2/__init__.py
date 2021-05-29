@@ -1,1 +1,1 @@
-from .model import SM2
+from .src.model import SM2
