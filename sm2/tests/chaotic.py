@@ -1,66 +1,106 @@
-from sm2 import SM2
 import datetime
 
-SM2.LAWFUL_or_CHAOTIC = "CHAOTIC"
-
-if 1:  # 按时复习
-    print("#" * 30)
-    a_instance = SM2(item_id="apple")
-    # 学习
-    # 1st tests
-    a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 7, 22, 10, 3)  # 或datetime.date(2021, 2, 7)
-    a_instance[-1]["q"] = 3
-    # 计算下一次测试的时间
-    a_instance.calc()
-    print(a_instance[-1]["plan_time"])
-    # 2nd tests
-    a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 8, 22, 10, 3)
-    a_instance[-1]["q"] = 5
-    # 计算下一次测试的时间
-    a_instance.calc()
-    print(a_instance[-1]["plan_time"])
-    # 3th tests
-    a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 14, 22, 10, 3)
-    a_instance[-1]["q"] = 4
-    # 计算下一次测试的时间
-    a_instance.calc()
-    print(a_instance[-1]["plan_time"])
-
+# sm2包的效果
+from sm2 import SM2
+SM2.LOG = True
+SM2.Time = True
+SM2.REPEAT = False
 if 1:  # 没有按时复习
     print("#" * 30)
-    a_instance = SM2(item_id="apple")
+    a_instance = SM2(item_info={"id":"apple"})
     # 学习
     # 1st tests
-    a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 7, 2, 22, 22)
-    a_instance[-1]["q"] = 3
+    t = datetime.datetime(2021, 2, 7, 2, 22, 22)
+    q = 3
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
     # 计算下一次测试的时间
-    a_instance.calc()
-    print(a_instance[-1]["plan_time"])
+    print("预计下次测试在:", a_instance.when_to_review_next())
     # 2nd tests
-    a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 9, 3, 33, 33)
-    a_instance[-1]["q"] = 5
+    t = datetime.datetime(2021, 2, 9, 3, 33, 33)
+    q = 5
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
     # 计算下一次测试的时间
-    a_instance.calc()
-    print(a_instance[-1]["plan_time"])
+    print("预计下次测试在:", a_instance.when_to_review_next())
     # 3th tests
-    a_instance[-1]["real_time"] = datetime.datetime(2021, 2, 16, 4, 44, 44)
-    a_instance[-1]["q"] = 4
+    t = datetime.datetime(2021, 2, 16, 4, 44, 44)
+    q = 4
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
     # 计算下一次测试的时间
-    a_instance.calc()
-    print(a_instance[-1]["plan_time"])
+    print("预计下次测试在:", a_instance.when_to_review_next())
+    # 4th tests
+    t = datetime.datetime(2021, 3, 1, 4, 44, 44)
+    q = 4
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
+    # 计算下一次测试的时间
+    print("预计下次测试在:", a_instance.when_to_review_next())
 
 # supermemo2包的效果
 print("#"*30)
-from supermemo2 import first_review, SMTwo
-smtwo = SMTwo()
-smtwo.calc(3, 2.5, 1, 1, datetime.date(2021, 2, 7))
-print(smtwo.review_date)
-record = smtwo.dict(curr=True)
-record["quality"] = 5
-smtwo.calc(**record)
-print(smtwo.review_date)
-record = smtwo.dict(curr=True)
-record["quality"] = 4
-smtwo.calc(**record)
-print(smtwo.review_date)
+from supermemo2 import SMTwo
+# 1th review
+d = datetime.date(2021,2,7)
+q = 3
+review = SMTwo.first_review(q, d)
+print("在%s测试得到%s分。" % (d, q))
+print("预计下次测试在:", review.review_date)
+# 2th review
+d = datetime.date(2021,2,9)
+q = 5
+review = SMTwo(review.easiness, review.interval, review.repetitions).review(q, d)
+print("在%s测试得到%s分。" % (d, q))
+print("预计下次测试在:", review.review_date)
+# 3th review
+d = datetime.date(2021, 2, 16)
+q = 4
+review = SMTwo(review.easiness, review.interval, review.repetitions).review(q, d)
+print("在%s测试得到%s分。" % (d, q))
+print("预计下次测试在:", review.review_date)
+# 4th review
+d = datetime.date(2021, 3, 1)
+q = 4
+review = SMTwo(review.easiness, review.interval, review.repetitions).review(q, d)
+print("在%s测试得到%s分。" % (d, q))
+print("预计下次测试在:", review.review_date)
 
+
+# sm2包的效果(开启错题循环)
+SM2.LOG = True
+SM2.Time = True
+SM2.REPEAT = True
+SM2.REPEAT_THRESHOLD = 3
+if 1:  # 没有按时复习
+    print("#" * 30)
+    a_instance = SM2(item_info={"id":"apple"})
+    # 学习
+    # 1st tests
+    t = datetime.datetime(2021, 2, 7, 2, 22, 22)
+    q = 3
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
+    # 计算下一次测试的时间
+    print("预计下次测试在:", a_instance.when_to_review_next())
+    # 2nd tests
+    t = datetime.datetime(2021, 2, 9, 3, 33, 33)
+    q = 5
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
+    # 计算下一次测试的时间
+    print("预计下次测试在:", a_instance.when_to_review_next())
+    # 3th tests
+    t = datetime.datetime(2021, 2, 16, 4, 44, 44)
+    q = 4
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
+    # 计算下一次测试的时间
+    print("预计下次测试在:", a_instance.when_to_review_next())
+    # 4th tests
+    t = datetime.datetime(2021, 3, 1, 4, 44, 44)
+    q = 4
+    a_instance.review(q, t)
+    print("在%s测试得到%s分。" % (t, q))
+    # 计算下一次测试的时间
+    print("预计下次测试在:", a_instance.when_to_review_next())

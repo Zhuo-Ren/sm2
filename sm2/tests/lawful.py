@@ -3,7 +3,7 @@ import datetime
 
 SM2.LAWFUL_or_CHAOTIC = "LAWFUL"
 
-a_instance = SM2(item_id="apple")
+a_instance = SM2(item_info="apple")
 # 学习
 # 1st tests
 a_instance[-1]["plan_time"] = datetime.date(2021, 2, 7)
