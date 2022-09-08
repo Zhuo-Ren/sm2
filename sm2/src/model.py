@@ -63,6 +63,16 @@ class SM2(list):
             else:
                 self.extend(log)
 
+    def start_review(self, start_time=None):
+        # 如果已经start，则不重复start
+        if self[-1]["plan_time"] != None:
+            return
+        #
+        if start_time == None:
+            self[-1]["plan_time"] = datetime.now() if SM2.Time == True else date.today()
+        else:
+            self[-1]["plan_time"] = start_time
+
     def calc(self):
         """
         如果当前测试信息self[-1]["step"、"plan_time"、"real_time"、"q"]存在时，
@@ -147,10 +157,7 @@ class SM2(list):
 
     def when_to_review_next(self):
         if (SM2.REPEAT == True) & (self.is_repeating != False):
-            if self.is_repeating+timedelta(days=1) < self[-1]["plan_time"]:
-                return self.is_repeating
-            else:
-                return self[-1]["plan_time"]
+            return self.is_repeating
         else:
             return self[-1]["plan_time"]
 

@@ -1,4 +1,4 @@
-from sm2.src.model import SM2
+from sm2 import SM2
 from typing import Dict, Union, Optional
 from datetime import datetime, date
 
@@ -13,6 +13,7 @@ class MemoGroup(Dict[str, SM2]):
         if new_sm2_obj.item_info["id"] in self:
             raise RuntimeError
         else:
+            new_sm2_obj.start_review()  # 当前版本中，添加到复习列表中同时就开始复习
             self[new_sm2_obj.item_info["id"]] = new_sm2_obj
 
     def get_keys(self, key="id"):
