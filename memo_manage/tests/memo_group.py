@@ -1,4 +1,4 @@
-from sm2 import MemoGroup
+from memo_manage import MemoGroup
 from sm2 import SM2
 import datetime
 
